@@ -1,0 +1,15 @@
+[package]
+name = "fuzzt"
+version = "0.1.0"
+authors = ["Luiz Otavio Vilas Boas Oliveira <luiz.vbo@gmail.com>"]
+description = """
+Implementations of string similarity metrics. Includes Hamming, Levenshtein,
+OSA, Damerau-Levenshtein, Jaro, Jaro-Winkler, and Sørensen-Dice.
+"""
+license = "MIT"
+readme = "README.md"
+keywords = ["string", "similarity", "Hamming", "Levenshtein", "Jaro"]
+homepage = "https://github.com/luizvbo/fuzzt"
+repository = "https://github.com/luizvbo/fuzzt"
+exclude = ["/.github", "/dev"]
+categories = ["text-processing"]
