@@ -1,4 +1,5 @@
-use crate::{flat_index,HybridGrowingHashmapChar,RowId};
+use crate::fuzzy::interface::{SimilarityMetric, Similarity};
+use crate::utils::{flat_index,HybridGrowingHashmapChar,RowId};
 use std::cmp::{max, min};
 use std::hash::Hash;
 use std::collections::HashMap;
@@ -148,7 +149,7 @@ pub fn damerau_levenshtein(a: &str, b: &str) -> usize {
 }
 
 /// Calculates a normalized score of the Damerau–Levenshtein algorithm between
-/// 0.0 and 1.0 (inclusive), where 1.0 means the strings are the same.
+/// 0.0 and 1.0 (inclusive), where 0.0 means the strings are the same.
 ///
 /// ```
 /// use fuzzt::normalized_damerau_levenshtein;
@@ -161,13 +162,32 @@ pub fn damerau_levenshtein(a: &str, b: &str) -> usize {
 /// ```
 pub fn normalized_damerau_levenshtein(a: &str, b: &str) -> f64 {
     if a.is_empty() && b.is_empty() {
-        return 1.0;
+        return 0.0;
     }
 
     let len1 = a.chars().count();
     let len2 = b.chars().count();
     let dist = damerau_levenshtein_impl(a.chars(), len1, b.chars(), len2);
-    1.0 - (dist as f64) / (max(len1, len2) as f64)
+    (dist as f64) / (max(len1, len2) as f64)
+}
+
+pub struct DamerauLevenshtein;
+pub struct NormalizedDamerauLevenshtein;
+
+impl SimilarityMetric for DamerauLevenshtein{
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Usize(
+            damerau_levenshtein(a, b)
+        )
+    }
+}
+
+impl SimilarityMetric for NormalizedDamerauLevenshtein{
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Float(
+            normalized_damerau_levenshtein(a, b)
+        )
+    }
 }
 
 #[cfg(test)]
@@ -260,30 +280,30 @@ mod tests {
     #[test]
     fn normalized_damerau_levenshtein_diff_short() {
         assert_delta!(
-            0.27272,
+            0.72727,
             normalized_damerau_levenshtein("levenshtein", "löwenbräu")
         );
     }
 
     #[test]
     fn normalized_damerau_levenshtein_for_empty_strings() {
-        assert_delta!(1.0, normalized_damerau_levenshtein("", ""));
+        assert_delta!(0.0, normalized_damerau_levenshtein("", ""));
     }
 
     #[test]
     fn normalized_damerau_levenshtein_first_empty() {
-        assert_delta!(0.0, normalized_damerau_levenshtein("", "flower"));
+        assert_delta!(1.0, normalized_damerau_levenshtein("", "flower"));
     }
 
     #[test]
     fn normalized_damerau_levenshtein_second_empty() {
-        assert_delta!(0.0, normalized_damerau_levenshtein("tree", ""));
+        assert_delta!(1.0, normalized_damerau_levenshtein("tree", ""));
     }
 
     #[test]
     fn normalized_damerau_levenshtein_identical_strings() {
         assert_delta!(
-            1.0,
+            0.0,
             normalized_damerau_levenshtein("sunglasses", "sunglasses")
         );
     }

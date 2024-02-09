@@ -1,9 +1,10 @@
-use crate::FuzztError;
+use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::utils::FuzztError;
 pub type HammingResult = Result<usize, FuzztError>;
 
 /// Calculates the number of positions in the two sequences where the elements
 /// differ. Returns an error if the sequences have different lengths.
-pub fn generic_hamming<Iter1, Iter2, Elem1, Elem2>(a: Iter1, b: Iter2) -> HammingResult
+fn generic_hamming<Iter1, Iter2, Elem1, Elem2>(a: Iter1, b: Iter2) -> HammingResult
 where
     Iter1: IntoIterator<Item = Elem1>,
     Iter2: IntoIterator<Item = Elem2>,
@@ -29,7 +30,7 @@ where
 ///
 /// ```
 /// use fuzzt::{FuzztError::DifferentLengthArgs};
-/// use fuzzt::algorithms::hamming::hamming;
+/// use fuzzt::hamming;
 ///
 /// assert_eq!(Ok(3), hamming("hamming", "hammers"));
 ///
@@ -37,6 +38,14 @@ where
 /// ```
 pub fn hamming(a: &str, b: &str) -> HammingResult {
     generic_hamming(a.chars(), b.chars())
+}
+
+pub struct Hamming;
+
+impl SimilarityMetric for Hamming {
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Usize(hamming(a, b).unwrap())
+    }
 }
 
 #[cfg(test)]

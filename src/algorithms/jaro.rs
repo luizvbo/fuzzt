@@ -1,9 +1,10 @@
-use crate::StringWrapper;
+use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::utils::StringWrapper;
 use std::cmp::{max, min};
 
 /// Calculates the Jaro similarity between two sequences. The returned value
 /// is between 0.0 and 1.0 (higher value means more similar).
-pub fn generic_jaro<'a, 'b, Iter1, Iter2, Elem1, Elem2>(a: &'a Iter1, b: &'b Iter2) -> f64
+fn generic_jaro<'a, 'b, Iter1, Iter2, Elem1, Elem2>(a: &'a Iter1, b: &'b Iter2) -> f64
 where
     &'a Iter1: IntoIterator<Item = Elem1>,
     &'b Iter2: IntoIterator<Item = Elem2>,
@@ -80,7 +81,7 @@ where
 }
 
 /// Like Jaro but gives a boost to sequences that have a common prefix.
-pub fn generic_jaro_winkler<'a, 'b, Iter1, Iter2, Elem1, Elem2>(a: &'a Iter1, b: &'b Iter2) -> f64
+fn generic_jaro_winkler<'a, 'b, Iter1, Iter2, Elem1, Elem2>(a: &'a Iter1, b: &'b Iter2) -> f64
 where
     &'a Iter1: IntoIterator<Item = Elem1>,
     &'b Iter2: IntoIterator<Item = Elem2>,
@@ -125,6 +126,21 @@ pub fn jaro(a: &str, b: &str) -> f64 {
 /// ```
 pub fn jaro_winkler(a: &str, b: &str) -> f64 {
     generic_jaro_winkler(&StringWrapper(a), &StringWrapper(b))
+}
+
+pub struct Jaro;
+pub struct JaroWinkler;
+
+impl SimilarityMetric for Jaro {
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Float(jaro(a, b))
+    }
+}
+
+impl SimilarityMetric for JaroWinkler {
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Float(jaro_winkler(a, b))
+    }
 }
 
 #[cfg(test)]

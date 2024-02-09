@@ -1,4 +1,5 @@
-use crate::bigrams;
+use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::utils::bigrams;
 use std::collections::HashMap;
 
 /// Calculates a Sørensen-Dice similarity distance using bigrams.
@@ -46,6 +47,14 @@ pub fn sorensen_dice(a: &str, b: &str) -> f64 {
     }
 
     (2 * intersection_size) as f64 / (a.len() + b.len() - 2) as f64
+}
+
+pub struct SorensenDice;
+
+impl SimilarityMetric for SorensenDice {
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Float(sorensen_dice(a, b))
+    }
 }
 
 #[cfg(test)]

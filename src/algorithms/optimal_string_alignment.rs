@@ -1,5 +1,7 @@
+use std::cmp::min;
 use std::mem;
-use std::cmp::{min};
+
+use crate::fuzzy::interface::{Similarity, SimilarityMetric};
 
 /// Like Levenshtein but allows for adjacent transpositions. Each substring can
 /// only be edited once.
@@ -47,6 +49,15 @@ pub fn osa_distance(a: &str, b: &str) -> usize {
     // from initializing the last element to b_len
     prev_distances[b_len]
 }
+
+pub struct OSADistance;
+
+impl SimilarityMetric for OSADistance {
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity {
+        Similarity::Usize(osa_distance(a, b))
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
