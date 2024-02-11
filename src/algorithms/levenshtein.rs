@@ -52,7 +52,7 @@ pub fn levenshtein(a: &str, b: &str) -> usize {
 }
 
 /// Calculates a normalized score of the Levenshtein algorithm between 0.0 and
-/// 1.0 (inclusive), where 0.0 means the strings are the same.
+/// 1.0 (inclusive), where 1.0 means the strings are the same.
 ///
 /// ```
 /// use fuzzt::normalized_levenshtein;
@@ -65,9 +65,9 @@ pub fn levenshtein(a: &str, b: &str) -> usize {
 /// ```
 pub fn normalized_levenshtein(a: &str, b: &str) -> f64 {
     if a.is_empty() && b.is_empty() {
-        return 0.0;
+        return 1.0;
     }
-    (levenshtein(a, b) as f64) / (a.chars().count().max(b.chars().count()) as f64)
+    1.0 - (levenshtein(a, b) as f64) / (a.chars().count().max(b.chars().count()) as f64)
 }
 
 pub struct Levenshtein;
@@ -134,26 +134,26 @@ mod tests {
 
     #[test]
     fn normalized_levenshtein_diff_short() {
-        assert_delta!(0.42857, normalized_levenshtein("kitten", "sitting"));
+        assert_delta!(0.57142, normalized_levenshtein("kitten", "sitting"));
     }
 
     #[test]
     fn normalized_levenshtein_for_empty_strings() {
-        assert_delta!(0.0, normalized_levenshtein("", ""));
+        assert_delta!(1.0, normalized_levenshtein("", ""));
     }
 
     #[test]
     fn normalized_levenshtein_first_empty() {
-        assert_delta!(1.0, normalized_levenshtein("", "second"));
+        assert_delta!(0.0, normalized_levenshtein("", "second"));
     }
 
     #[test]
     fn normalized_levenshtein_second_empty() {
-        assert_delta!(1.0, normalized_levenshtein("first", ""));
+        assert_delta!(0.0, normalized_levenshtein("first", ""));
     }
 
     #[test]
     fn normalized_levenshtein_identical_strings() {
-        assert_delta!(0.0, normalized_levenshtein("identical", "identical"));
+        assert_delta!(1.0, normalized_levenshtein("identical", "identical"));
     }
 }
