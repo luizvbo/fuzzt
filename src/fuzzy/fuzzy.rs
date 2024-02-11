@@ -50,7 +50,6 @@ pub fn get_top_n<'a>(
             Similarity::Usize(r) => r as f32,
             Similarity::Float(r) => r as f32,
         };
-        println!("{:?}", ratio);
         if ratio >= cutoff {
             let int_ratio = match raw_ratio {
                 Similarity::Usize(r) => r as i32,
@@ -61,7 +60,6 @@ pub fn get_top_n<'a>(
             matches.push((-int_ratio, Reverse(choice)));
         }
     }
-    println!("{:?}", matches);
     let mut rv = vec![];
     for _ in 0..n {
         if let Some((_, elt)) = matches.pop() {
@@ -77,11 +75,13 @@ pub fn get_top_n<'a>(
 mod tests {
     use super::get_top_n;
     use crate::fuzzy::interface::SimilarityMetric;
-    use crate::fuzzy::processors::StringProcessor;
+    use crate::fuzzy::processors::{StringProcessor, LowerAlphaNumStringProcessor};
     use rstest::rstest;
 
     #[rstest]
     #[case("hulo", &["hi", "hali", "hoho", "amaz", "auloo", "zulo", "blah", "hopp", "uulo", "aulo", ][..], 0.7, Some(3), None, None, &["aulo", "uulo", "zulo"])]
+    #[case("test", &["best", "TEST", "rest", "jest", "pest", "nest", "zest", "fest", "quest", "vest", "west", ][..], 0.7, Some(3), None, None, &["best", "fest", "jest"])]
+    #[case("Hello!", &["Hi!", "Helo!", "HoHo!!", "Amaz!", "Auloo!", "Zulo!", "Blah!", "Hopp!", "Uulo!", "Aulo!"][..], 0.7, Some(3), Some(&LowerAlphaNumStringProcessor as &dyn StringProcessor), None, &["Aulo!", "Auloo!", "Zulo!"])]
     fn test_get_top_n<'a>(
         #[case] query: &str,
         #[case] choices: &[&'a str],
