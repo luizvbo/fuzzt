@@ -1,8 +1,8 @@
-use crate::fuzzy::interface::{SimilarityMetric, Similarity};
-use crate::utils::{flat_index,HybridGrowingHashmapChar,RowId};
+use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::utils::{flat_index, HybridGrowingHashmapChar, RowId};
 use std::cmp::{max, min};
-use std::hash::Hash;
 use std::collections::HashMap;
+use std::hash::Hash;
 use std::mem;
 
 /// Like optimal string alignment, but substrings can be edited an unlimited
@@ -174,19 +174,15 @@ pub fn normalized_damerau_levenshtein(a: &str, b: &str) -> f64 {
 pub struct DamerauLevenshtein;
 pub struct NormalizedDamerauLevenshtein;
 
-impl SimilarityMetric for DamerauLevenshtein{
+impl SimilarityMetric for DamerauLevenshtein {
     fn compute_metric(&self, a: &str, b: &str) -> Similarity {
-        Similarity::Usize(
-            damerau_levenshtein(a, b)
-        )
+        Similarity::Usize(damerau_levenshtein(a, b))
     }
 }
 
-impl SimilarityMetric for NormalizedDamerauLevenshtein{
+impl SimilarityMetric for NormalizedDamerauLevenshtein {
     fn compute_metric(&self, a: &str, b: &str) -> Similarity {
-        Similarity::Float(
-            normalized_damerau_levenshtein(a, b)
-        )
+        Similarity::Float(normalized_damerau_levenshtein(a, b))
     }
 }
 

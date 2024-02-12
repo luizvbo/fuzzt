@@ -1,8 +1,8 @@
 extern crate fuzzt;
 
 use fuzzt::{
-    damerau_levenshtein, jaro, jaro_winkler, levenshtein, normalized_damerau_levenshtein,
-    normalized_levenshtein, osa_distance, hamming, assert_delta
+    assert_delta, damerau_levenshtein, hamming, jaro, jaro_winkler, levenshtein,
+    normalized_damerau_levenshtein, normalized_levenshtein, osa_distance,
 };
 
 #[test]

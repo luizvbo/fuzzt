@@ -1,8 +1,8 @@
 use std::char;
+use std::convert::TryFrom;
 use std::error::Error;
 use std::fmt::{self, Display, Formatter};
 use std::str::Chars;
-use std::convert::TryFrom;
 
 #[derive(Debug, PartialEq)]
 pub enum FuzztError {
@@ -225,7 +225,6 @@ impl Default for RowId {
     }
 }
 
-
 /// Returns an Iterator of char tuples.
 pub fn bigrams(s: &str) -> impl Iterator<Item = (char, char)> + '_ {
     s.chars().zip(s.chars().skip(1))
@@ -252,4 +251,3 @@ mod tests {
         assert_eq!(None, bi.next());
     }
 }
-
