@@ -72,13 +72,13 @@ footprint of your application and optimize performance.
 
 The crate includes the following features:
 
-- `damerau_levenshtein`
-- `gestalt`
-- `hamming`
-- `jaro`
-- `levenshtein`
-- `optimal_string_alignment`
-- `sorensen_dice`
+- damerau_levenshtein
+- gestalt
+- hamming
+- jaro
+- levenshtein
+- optimal_string_alignment
+- sorensen_dice
 
 By default, all features are included when you add `fuzzt` as a dependency.
 However, you can choose to include only specific features by listing them under

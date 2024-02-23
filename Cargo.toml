@@ -18,11 +18,10 @@ rust-version = "1.70.0"
 
 [features]
 default = [
-  "damerau_levenshtein", "gestalt", "hamming", "jaro",
+  "damerau_levenshtein", "hamming", "jaro",
   "levenshtein", "optimal_string_alignment", "sorensen_dice"
 ]
 damerau_levenshtein = []
-gestalt = []
 hamming = []
 jaro = []
 levenshtein = []
