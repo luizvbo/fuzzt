@@ -26,6 +26,9 @@ additions:
   python difflib SequenceMatcher
 - [Top-N matching](#top-n-matching), a method to retrieve the best N matches
   from a collection of choices.
+- [Feature selection](#feature-selection), allows you to select only the
+  features (metrics) you want to use, reducing the memory footprint of your
+  application.
 
 ### Top-N Matching
 
@@ -61,6 +64,29 @@ fn main() {
 }
 ```
 
+### Feature selection
+
+`fuzzt` is designed with flexibility in mind, allowing you to select only the
+features you need for your specific use case. This can help to reduce the
+footprint of your application and optimize performance.
+
+The crate includes the following features:
+
+- `damerau_levenshtein`
+- `gestalt`
+- `hamming`
+- `jaro`
+- `levenshtein`
+- `optimal_string_alignment`
+- `sorensen_dice`
+
+By default, all features are included when you add `fuzzt` as a dependency.
+However, you can choose to include only specific features by listing them under
+the `features` key in your `Cargo.toml` file. For example:
+
+````toml
+[dependencies]
+fuzzt = { version = "*", default-features = false, features = ["levenshtein", "jaro"] }
 
 ## Installation
 
@@ -69,7 +95,7 @@ your project:
 
 ```sh
 cargo add fuzzt
-```
+````
 
 ## Usage
 
