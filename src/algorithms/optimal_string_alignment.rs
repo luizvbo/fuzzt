@@ -1,13 +1,13 @@
 use std::cmp::min;
 use std::mem;
 
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 
 /// Like Levenshtein but allows for adjacent transpositions. Each substring can
 /// only be edited once.
 ///
 /// ```
-/// use fuzzt::osa_distance;
+/// use fuzzt::algorithms::osa_distance;
 ///
 /// assert_eq!(3, osa_distance("ab", "bca"));
 /// ```

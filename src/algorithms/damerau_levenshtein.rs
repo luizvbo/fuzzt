@@ -1,4 +1,4 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use crate::utils::{flat_index, HybridGrowingHashmapChar, RowId};
 use std::cmp::{max, min};
 use std::collections::HashMap;
@@ -9,7 +9,7 @@ use std::mem;
 /// number of times, and the triangle inequality holds.
 ///
 /// ```
-/// use fuzzt::generic_damerau_levenshtein;
+/// use fuzzt::algorithms::generic_damerau_levenshtein;
 ///
 /// assert_eq!(2, generic_damerau_levenshtein(&[1,2], &[2,3,1]));
 /// ```
@@ -140,7 +140,7 @@ where
 /// number of times, and the triangle inequality holds.
 ///
 /// ```
-/// use fuzzt::damerau_levenshtein;
+/// use fuzzt::algorithms::damerau_levenshtein;
 ///
 /// assert_eq!(2, damerau_levenshtein("ab", "bca"));
 /// ```
@@ -152,7 +152,7 @@ pub fn damerau_levenshtein(a: &str, b: &str) -> usize {
 /// 0.0 and 1.0 (inclusive), where 1.0 means the strings are the same.
 ///
 /// ```
-/// use fuzzt::normalized_damerau_levenshtein;
+/// use fuzzt::algorithms::normalized_damerau_levenshtein;
 ///
 /// assert!((normalized_damerau_levenshtein("levenshtein", "löwenbräu") - 0.27272).abs() < 0.00001);
 /// assert!((normalized_damerau_levenshtein("", "") - 1.0).abs() < 0.00001);

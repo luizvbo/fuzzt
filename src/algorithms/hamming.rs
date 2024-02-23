@@ -1,5 +1,6 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use crate::utils::FuzztError;
+
 pub type HammingResult = Result<usize, FuzztError>;
 
 /// Calculates the number of positions in the two sequences where the elements
@@ -30,7 +31,7 @@ where
 ///
 /// ```
 /// use fuzzt::{FuzztError::DifferentLengthArgs};
-/// use fuzzt::hamming;
+/// use fuzzt::algorithms::hamming;
 ///
 /// assert_eq!(Ok(3), hamming("hamming", "hammers"));
 ///

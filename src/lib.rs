@@ -19,21 +19,10 @@
     clippy::range_plus_one
 )]
 
-mod algorithms;
+pub mod algorithms;
+pub mod processors;
+pub use utils::FuzztError;
+mod matcher;
 mod utils;
 
-pub mod fuzzy;
-pub use algorithms::damerau_levenshtein::{
-    damerau_levenshtein, generic_damerau_levenshtein, normalized_damerau_levenshtein,
-    DamerauLevenshtein, NormalizedDamerauLevenshtein,
-};
-pub use algorithms::gestalt::sequence_matcher;
-pub use algorithms::gestalt::SequenceMatcher;
-pub use algorithms::hamming::hamming;
-pub use algorithms::jaro::{jaro, jaro_winkler};
-pub use algorithms::levenshtein::{
-    generic_levenshtein, levenshtein, normalized_levenshtein, Levenshtein, NormalizedLevenshtein,
-};
-pub use algorithms::optimal_string_alignment::osa_distance;
-pub use algorithms::sorensen_dice::sorensen_dice;
-pub use utils::FuzztError;
+pub use matcher::get_top_n;

@@ -1,13 +1,9 @@
 use crate::{
-    fuzzy::interface::{Similarity, SimilarityMetric},
-    NormalizedLevenshtein,
+    algorithms::{NormalizedLevenshtein, Similarity, SimilarityMetric},
+    processors::{NullStringProcessor, StringProcessor},
 };
-use processors::{NullStringProcessor, StringProcessor};
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
-
-pub mod interface;
-pub mod processors;
 
 /// Returns a list of the best matches to a collection of choices.
 ///
@@ -28,13 +24,14 @@ pub mod processors;
 pub fn get_top_n<'a>(
     query: &str,
     choices: &[&'a str],
-    cutoff: f64,
+    cutoff: Option<f64>,
     n: Option<usize>,
     processor: Option<&dyn StringProcessor>,
     scorer: Option<&dyn SimilarityMetric>,
 ) -> Vec<&'a str> {
     let mut matches = BinaryHeap::new();
     let n = n.unwrap_or(3);
+    let cutoff = cutoff.unwrap_or(0.7);
     let scorer = match scorer {
         Some(scorer_trait) => scorer_trait,
         None => &NormalizedLevenshtein,
@@ -77,17 +74,17 @@ pub fn get_top_n<'a>(
 mod tests {
     use super::get_top_n;
     use crate::algorithms::jaro::JaroWinkler;
-    use crate::fuzzy::interface::SimilarityMetric;
-    use crate::fuzzy::processors::{LowerAlphaNumStringProcessor, StringProcessor};
+    use crate::algorithms::SimilarityMetric;
+    use crate::processors::{LowerAlphaNumStringProcessor, StringProcessor};
     use rstest::rstest;
 
     #[rstest]
-    #[case(0.7, Some(3), None, None, &["brazil", "braziu", "trazil"])]
-    #[case(0.9, Some(5), None, None, &["brazil"])]
-    #[case(0.7, Some(2), None, Some(&JaroWinkler as &dyn SimilarityMetric), &["brazil", "braziu"])]
-    #[case(0.7, Some(2), Some(&LowerAlphaNumStringProcessor as &dyn StringProcessor), None, &["brazil", "BRA ZIL"])]
+    #[case(Some(0.7), Some(3), None, None, &["brazil", "braziu", "trazil"])]
+    #[case(Some(0.9), Some(5), None, None, &["brazil"])]
+    #[case(Some(0.7), Some(2), None, Some(&JaroWinkler as &dyn SimilarityMetric), &["brazil", "braziu"])]
+    #[case(Some(0.7), Some(2), Some(&LowerAlphaNumStringProcessor as &dyn StringProcessor), None, &["brazil", "BRA ZIL"])]
     fn test_get_top_n<'a>(
-        #[case] cutoff: f64,
+        #[case] cutoff: Option<f64>,
         #[case] n: Option<usize>,
         #[case] processor: Option<&dyn StringProcessor>,
         #[case] scorer: Option<&dyn SimilarityMetric>,

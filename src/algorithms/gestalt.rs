@@ -1,4 +1,4 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 
 use std::collections::HashMap;
 
@@ -17,6 +17,16 @@ use std::collections::HashMap;
 /// # Returns
 ///
 /// * A float between 0 and 1 representing the similarity of the two strings.
+/// ```
+/// use fuzzt::algorithms::sequence_matcher;
+///
+/// assert_eq!(sequence_matcher("test", "test"), 1.0);
+/// assert_eq!(sequence_matcher("test", "tent"), 0.75);
+/// assert_eq!(sequence_matcher("kitten", "sitting"), 0.6153846153846154);
+/// assert_eq!(sequence_matcher("", ""), 1.0);
+/// assert_eq!(sequence_matcher("test", ""), 0.0);
+/// assert_eq!(sequence_matcher("", "test"), 0.0);
+/// ```
 pub fn sequence_matcher(s1: &str, s2: &str) -> f64 {
     let length = s1.len() + s2.len();
 
