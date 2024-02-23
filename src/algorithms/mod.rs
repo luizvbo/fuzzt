@@ -41,3 +41,13 @@ pub use optimal_string_alignment::osa_distance;
 #[cfg(feature = "sorensen_dice")]
 pub mod sorensen_dice;
 pub use sorensen_dice::sorensen_dice;
+
+pub enum Similarity {
+    Usize(usize),
+    Float(f64),
+}
+
+pub trait SimilarityMetric {
+    // The smaller, the more similar 2 strings are.
+    fn compute_metric(&self, a: &str, b: &str) -> Similarity;
+}

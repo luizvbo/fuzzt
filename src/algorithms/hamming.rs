@@ -1,5 +1,6 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use crate::utils::FuzztError;
+
 pub type HammingResult = Result<usize, FuzztError>;
 
 /// Calculates the number of positions in the two sequences where the elements

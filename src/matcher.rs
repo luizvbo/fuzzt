@@ -1,14 +1,9 @@
 use crate::{
-    fuzzy::interface::{Similarity, SimilarityMetric},
-    algorithms::NormalizedLevenshtein,
+    algorithms::{NormalizedLevenshtein, Similarity, SimilarityMetric},
+    processors::{NullStringProcessor, StringProcessor},
 };
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
-
-pub use processors::{NullStringProcessor, StringProcessor};
-
-pub mod interface;
-pub mod processors;
 
 /// Returns a list of the best matches to a collection of choices.
 ///
@@ -79,8 +74,8 @@ pub fn get_top_n<'a>(
 mod tests {
     use super::get_top_n;
     use crate::algorithms::jaro::JaroWinkler;
-    use crate::fuzzy::interface::SimilarityMetric;
-    use crate::fuzzy::processors::{LowerAlphaNumStringProcessor, StringProcessor};
+    use crate::algorithms::SimilarityMetric;
+    use crate::processors::{LowerAlphaNumStringProcessor, StringProcessor};
     use rstest::rstest;
 
     #[rstest]
