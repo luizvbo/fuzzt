@@ -95,7 +95,7 @@ your project:
 
 ```sh
 cargo add fuzzt
-```
+````
 
 ## Usage
 
