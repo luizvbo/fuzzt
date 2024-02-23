@@ -1,6 +1,6 @@
 use crate::utils::StringWrapper;
 
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use std::cmp::min;
 
 /// Calculates the minimum number of insertions, deletions, and substitutions

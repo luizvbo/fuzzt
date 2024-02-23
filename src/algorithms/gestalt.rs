@@ -1,4 +1,4 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 
 use std::collections::HashMap;
 

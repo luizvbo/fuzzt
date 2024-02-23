@@ -1,4 +1,4 @@
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use crate::utils::{flat_index, HybridGrowingHashmapChar, RowId};
 use std::cmp::{max, min};
 use std::collections::HashMap;

@@ -20,7 +20,9 @@
 )]
 
 pub mod algorithms;
-pub mod fuzzy;
+pub mod processors;
+pub use utils::FuzztError;
+mod matcher;
 mod utils;
 
-pub use utils::FuzztError;
+pub use matcher::get_top_n;
