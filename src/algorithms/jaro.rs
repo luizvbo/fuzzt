@@ -107,7 +107,7 @@ where
 /// is between 0.0 and 1.0 (higher value means more similar).
 ///
 /// ```
-/// use fuzzt::jaro;
+/// use fuzzt::algorithms::jaro;
 ///
 /// assert!((0.392 - jaro("Friedrich Nietzsche", "Jean-Paul Sartre")).abs() <
 ///         0.001);
@@ -119,7 +119,7 @@ pub fn jaro(a: &str, b: &str) -> f64 {
 /// Like Jaro but gives a boost to strings that have a common prefix.
 ///
 /// ```
-/// use fuzzt::jaro_winkler;
+/// use fuzzt::algorithms::jaro_winkler;
 ///
 /// assert!((0.866 - jaro_winkler("cheeseburger", "cheese fries")).abs() <
 ///         0.001);

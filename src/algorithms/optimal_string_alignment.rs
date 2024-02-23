@@ -7,7 +7,7 @@ use crate::fuzzy::interface::{Similarity, SimilarityMetric};
 /// only be edited once.
 ///
 /// ```
-/// use fuzzt::osa_distance;
+/// use fuzzt::algorithms::osa_distance;
 ///
 /// assert_eq!(3, osa_distance("ab", "bca"));
 /// ```

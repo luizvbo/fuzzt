@@ -30,7 +30,7 @@ where
 ///
 /// ```
 /// use fuzzt::{FuzztError::DifferentLengthArgs};
-/// use fuzzt::hamming;
+/// use fuzzt::algorithms::hamming;
 ///
 /// assert_eq!(Ok(3), hamming("hamming", "hammers"));
 ///

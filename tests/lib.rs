@@ -1,8 +1,11 @@
 extern crate fuzzt;
 
 use fuzzt::{
-    assert_delta, damerau_levenshtein, hamming, jaro, jaro_winkler, levenshtein,
-    normalized_damerau_levenshtein, normalized_levenshtein, osa_distance,
+    algorithms::{
+        damerau_levenshtein, hamming, jaro, jaro_winkler, levenshtein,
+        normalized_damerau_levenshtein, normalized_levenshtein, osa_distance, sequence_matcher,
+    },
+    assert_delta,
 };
 
 #[test]
@@ -53,4 +56,9 @@ fn jaro_works() {
 #[test]
 fn jaro_winkler_works() {
     assert_delta!(0.866, jaro_winkler("cheeseburger", "cheese fries"), 0.001);
+}
+
+#[test]
+fn sequence_matcher_works() {
+    assert_delta!(0.615, sequence_matcher("kitten", "sitting"), 0.001);
 }

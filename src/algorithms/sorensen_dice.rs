@@ -6,7 +6,7 @@ use std::collections::HashMap;
 /// See <https://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient>.
 ///
 /// ```
-/// use fuzzt::sorensen_dice;
+/// use fuzzt::algorithms::sorensen_dice;
 ///
 /// assert_eq!(1.0, sorensen_dice("", ""));
 /// assert_eq!(0.0, sorensen_dice("", "a"));
