@@ -1,5 +1,5 @@
 use crate::{
-    algorithms::{NormalizedLevenshtein, Similarity, SimilarityMetric},
+    algorithms::{SequenceMatcher, Similarity, SimilarityMetric},
     processors::{NullStringProcessor, StringProcessor},
 };
 use std::cmp::Reverse;
@@ -12,16 +12,19 @@ use std::collections::BinaryHeap;
 /// # Arguments
 ///
 /// * `query` - A string to match against.
-/// * `choices` - A list of choices, suitable for use with extract().
-/// * `cutoff` - A score threshold. No matches with a score less than this number will be returned.
+/// * `choices` - A list of choices to compare against the query.
+/// * `cutoff` - A score threshold. No matches with a score less than this number will be returned. Defaults to 0.7.
 /// * `n` - Optional maximum for the number of elements returned. Defaults to 3.
 /// * `processor` - Optional function for transforming choices before matching. If not provided, `NullStringProcessor` is used.
-/// * `scorer` - Optional scoring function for extract(). If not provided, `Levenshtein` is used.
+/// * `scorer` - Optional scoring function for extract(). If not provided, `SequenceMatcher` is used.
 ///
 /// # Returns
 ///
 /// * A vector of the top 'n' matches from the given choices.
-///```
+///
+/// # Example
+///
+/// ```
 /// extern crate fuzzt;
 /// use fuzzt::{algorithms::NormalizedLevenshtein, get_top_n, processors::NullStringProcessor};
 ///
@@ -34,7 +37,7 @@ use std::collections::BinaryHeap;
 ///     Some(&NormalizedLevenshtein),
 /// );
 /// assert_eq!(matches, ["apples", "applet", "apply"]);
-///```
+/// ```
 pub fn get_top_n<'a>(
     query: &str,
     choices: &[&'a str],
@@ -48,7 +51,7 @@ pub fn get_top_n<'a>(
     let cutoff = cutoff.unwrap_or(0.7);
     let scorer = match scorer {
         Some(scorer_trait) => scorer_trait,
-        None => &NormalizedLevenshtein,
+        None => &SequenceMatcher,
     };
     let processor = match processor {
         Some(some_processor) => some_processor,
