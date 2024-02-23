@@ -21,6 +21,20 @@ use std::collections::BinaryHeap;
 /// # Returns
 ///
 /// * A vector of the top 'n' matches from the given choices.
+///```
+/// extern crate fuzzt;
+/// use fuzzt::{algorithms::NormalizedLevenshtein, get_top_n, processors::NullStringProcessor};
+///
+/// let matches = get_top_n(
+///     "apple",
+///     &["apply", "apples", "ape", "applet", "applesauce"],
+///     Some(0.8),
+///     Some(3),
+///     Some(&NullStringProcessor),
+///     Some(&NormalizedLevenshtein),
+/// );
+/// assert_eq!(matches, ["apples", "applet", "apply"]);
+///```
 pub fn get_top_n<'a>(
     query: &str,
     choices: &[&'a str],
