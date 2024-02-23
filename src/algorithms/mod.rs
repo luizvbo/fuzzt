@@ -15,6 +15,7 @@ macro_rules! assert_delta {
 }
 
 pub mod damerau_levenshtein;
+pub mod gestalt;
 pub mod hamming;
 pub mod jaro;
 pub mod levenshtein;

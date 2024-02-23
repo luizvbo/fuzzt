@@ -27,6 +27,8 @@ pub use algorithms::damerau_levenshtein::{
     damerau_levenshtein, generic_damerau_levenshtein, normalized_damerau_levenshtein,
     DamerauLevenshtein, NormalizedDamerauLevenshtein,
 };
+pub use algorithms::gestalt::sequence_matcher;
+pub use algorithms::gestalt::SequenceMatcher;
 pub use algorithms::hamming::hamming;
 pub use algorithms::jaro::{jaro, jaro_winkler};
 pub use algorithms::levenshtein::{
