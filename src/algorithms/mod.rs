@@ -25,10 +25,10 @@ pub mod gestalt;
 pub use gestalt::{sequence_matcher, SequenceMatcher};
 #[cfg(feature = "hamming")]
 pub mod hamming;
-pub use hamming::hamming;
+pub use hamming::{hamming, Hamming};
 #[cfg(feature = "jaro")]
 pub mod jaro;
-pub use jaro::{jaro, jaro_winkler};
+pub use jaro::{jaro, jaro_winkler, Jaro, JaroWinkler};
 #[cfg(feature = "levenshtein")]
 pub mod levenshtein;
 pub use levenshtein::{
@@ -37,10 +37,10 @@ pub use levenshtein::{
 
 #[cfg(feature = "optimal_string_alignment")]
 pub mod optimal_string_alignment;
-pub use optimal_string_alignment::osa_distance;
+pub use optimal_string_alignment::{osa_distance, OSADistance};
 #[cfg(feature = "sorensen_dice")]
 pub mod sorensen_dice;
-pub use sorensen_dice::sorensen_dice;
+pub use sorensen_dice::{sorensen_dice, SorensenDice};
 
 pub enum Similarity {
     Usize(usize),
