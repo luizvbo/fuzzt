@@ -2,9 +2,10 @@ use crate::{
     fuzzy::interface::{Similarity, SimilarityMetric},
     NormalizedLevenshtein,
 };
-use processors::{NullStringProcessor, StringProcessor};
 use std::cmp::Reverse;
 use std::collections::BinaryHeap;
+
+pub use processors::{NullStringProcessor, StringProcessor};
 
 pub mod interface;
 pub mod processors;

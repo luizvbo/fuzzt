@@ -21,9 +21,9 @@
 
 mod algorithms;
 mod utils;
+pub mod fuzzy;
 
 pub use utils::FuzztError;
-pub mod fuzzy;
 
 #[cfg(feature = "damerau_levenshtein")]
 pub use algorithms::damerau_levenshtein::{
