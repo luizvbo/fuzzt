@@ -1,5 +1,5 @@
 use crate::{
-    algorithms::{NormalizedLevenshtein, Similarity, SimilarityMetric},
+    algorithms::{SequenceMatcher, Similarity, SimilarityMetric},
     processors::{NullStringProcessor, StringProcessor},
 };
 use std::cmp::Reverse;
@@ -48,7 +48,7 @@ pub fn get_top_n<'a>(
     let cutoff = cutoff.unwrap_or(0.7);
     let scorer = match scorer {
         Some(scorer_trait) => scorer_trait,
-        None => &NormalizedLevenshtein,
+        None => &SequenceMatcher,
     };
     let processor = match processor {
         Some(some_processor) => some_processor,

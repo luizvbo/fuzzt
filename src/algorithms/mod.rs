@@ -22,9 +22,7 @@ pub use damerau_levenshtein::{
     DamerauLevenshtein, NormalizedDamerauLevenshtein,
 };
 
-#[cfg(feature = "gestalt")]
 pub mod gestalt;
-#[cfg(feature = "gestalt")]
 pub use gestalt::{sequence_matcher, SequenceMatcher};
 
 #[cfg(feature = "hamming")]
