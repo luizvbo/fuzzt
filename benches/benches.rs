@@ -11,7 +11,7 @@ fn bench_hamming(bencher: &mut Bencher) {
     let a = "ACAAGATGCCATTGTCCCCCGGCCTCCTGCTGCTGCTGCTCTCCGGGG";
     let b = "CCTGGAGGGTGGCCCCACCGGCCGAGACAGCGAGCATATGCAGGAAGC";
     bencher.iter(|| {
-        fuzzt::hamming(a, b).unwrap();
+        fuzzt::algorithms::hamming(a, b).unwrap();
     })
 }
 
@@ -20,7 +20,7 @@ fn bench_jaro(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::jaro(a, b);
+        fuzzt::algorithms::jaro(a, b);
     })
 }
 
@@ -29,7 +29,7 @@ fn bench_jaro_winkler(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::jaro_winkler(a, b);
+        fuzzt::algorithms::jaro_winkler(a, b);
     })
 }
 
@@ -38,14 +38,14 @@ fn bench_levenshtein(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::levenshtein(a, b);
+        fuzzt::algorithms::levenshtein(a, b);
     })
 }
 
 #[bench]
 fn bench_levenshtein_on_u8(bencher: &mut Bencher) {
     bencher.iter(|| {
-        fuzzt::generic_levenshtein(&vec![0u8; 30], &vec![7u8; 31]);
+        fuzzt::algorithms::generic_levenshtein(&vec![0u8; 30], &vec![7u8; 31]);
     })
 }
 
@@ -54,7 +54,7 @@ fn bench_normalized_levenshtein(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::normalized_levenshtein(a, b);
+        fuzzt::algorithms::normalized_levenshtein(a, b);
     })
 }
 
@@ -63,7 +63,7 @@ fn bench_osa_distance(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::osa_distance(a, b);
+        fuzzt::algorithms::osa_distance(a, b);
     })
 }
 
@@ -72,7 +72,7 @@ fn bench_damerau_levenshtein(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::damerau_levenshtein(a, b);
+        fuzzt::algorithms::damerau_levenshtein(a, b);
     })
 }
 
@@ -81,7 +81,7 @@ fn bench_normalized_damerau_levenshtein(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::normalized_damerau_levenshtein(a, b);
+        fuzzt::algorithms::normalized_damerau_levenshtein(a, b);
     })
 }
 
@@ -90,6 +90,6 @@ fn bench_sorensen_dice(bencher: &mut Bencher) {
     let a = "Philosopher Friedrich Nietzsche";
     let b = "Philosopher Jean-Paul Sartre";
     bencher.iter(|| {
-        fuzzt::sorensen_dice(a, b);
+        fuzzt::algorithms::sorensen_dice(a, b);
     })
 }

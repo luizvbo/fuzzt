@@ -1,6 +1,4 @@
-pub trait StringProcessor {
-    fn process(&self, s: &str) -> String;
-}
+use super::StringProcessor;
 
 pub struct LowerAlphaNumStringProcessor;
 pub struct NullStringProcessor;
