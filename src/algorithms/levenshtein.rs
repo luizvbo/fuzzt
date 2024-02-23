@@ -1,13 +1,13 @@
 use crate::utils::StringWrapper;
 
-use crate::fuzzy::interface::{Similarity, SimilarityMetric};
+use crate::algorithms::{Similarity, SimilarityMetric};
 use std::cmp::min;
 
 /// Calculates the minimum number of insertions, deletions, and substitutions
 /// required to change one sequence into the other.
 ///
 /// ```
-/// use fuzzt::generic_levenshtein;
+/// use fuzzt::algorithms::generic_levenshtein;
 ///
 /// assert_eq!(3, generic_levenshtein(&[1,2,3], &[1,2,3,4,5,6]));
 /// ```
@@ -43,7 +43,7 @@ where
 /// required to change one string into the other.
 ///
 /// ```
-/// use fuzzt::levenshtein;
+/// use fuzzt::algorithms::levenshtein;
 ///
 /// assert_eq!(3, levenshtein("kitten", "sitting"));
 /// ```
@@ -55,7 +55,7 @@ pub fn levenshtein(a: &str, b: &str) -> usize {
 /// 1.0 (inclusive), where 1.0 means the strings are the same.
 ///
 /// ```
-/// use fuzzt::normalized_levenshtein;
+/// use fuzzt::algorithms::normalized_levenshtein;
 ///
 /// assert!((normalized_levenshtein("kitten", "sitting") - 0.57142).abs() < 0.00001);
 /// assert!((normalized_levenshtein("", "") - 1.0).abs() < 0.00001);
