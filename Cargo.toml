@@ -16,19 +16,5 @@ exclude = ["/.github", "/dev"]
 categories = ["text-processing"]
 rust-version = "1.70.0"
 
-[features]
-default = [
-  "damerau_levenshtein", "gestalt", "hamming", "jaro",
-  "levenshtein", "optimal_string_alignment", "sorensen_dice"
-]
-damerau_levenshtein = []
-gestalt = []
-hamming = []
-jaro = []
-levenshtein = []
-optimal_string_alignment = []
-sorensen_dice = []
-
-
 [dev-dependencies]
 rstest = "0.18.2"
