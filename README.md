@@ -1,19 +1,22 @@
 # Fuzzt
 
-[Rust](https://www.rust-lang.org) implementations of [string similarity metrics]:
-  - [Hamming]
-  - [Levenshtein] - distance & normalized
-  - [Optimal string alignment]
-  - [Damerau-Levenshtein] - distance & normalized
-  - [Jaro and Jaro-Winkler]
-  - [Sørensen-Dice]
+[Rust](https://www.rust-lang.org) implementations of
+[string similarity metrics]:
+
+- [Hamming]
+- [Levenshtein] - distance & normalized
+- [Optimal string alignment]
+- [Damerau-Levenshtein] - distance & normalized
+- [Jaro and Jaro-Winkler]
+- [Sørensen-Dice]
 
 The normalized versions return values between `0.0` and `1.0`, where `1.0` means
 an exact match.
 
 There are also generic versions of the functions for non-string inputs.
 
-This crate is heavily based on the [strsim-rs](https://github.com/rapidfuzz/strsim-rs) crate.
+This crate is heavily based on the
+[strsim-rs](https://github.com/rapidfuzz/strsim-rs) crate.
 
 ## Installation
 
@@ -26,8 +29,8 @@ cargo add fuzzt
 
 ## Usage
 
-Go to [Docs.rs](https://docs.rs/fuzzt/) for the full documentation. You can
-also clone the repo, and run `$ cargo doc --open`.
+Go to [Docs.rs](https://docs.rs/fuzzt/) for the full documentation. You can also
+clone the repo, and run `$ cargo doc --open`.
 
 ### Examples
 
@@ -36,7 +39,7 @@ extern crate fuzzt;
 
 use fuzzt::{hamming, levenshtein, normalized_levenshtein, osa_distance,
              damerau_levenshtein, normalized_damerau_levenshtein, jaro,
-             jaro_winkler, sorensen_dice};
+             jaro_winkler, sorensen_dice, sequence_matcher};
 
 fn main() {
     match hamming("hamming", "hammers") {
@@ -63,6 +66,8 @@ fn main() {
 
     assert_eq!(sorensen_dice("web applications", "applications of the web"),
         0.7878787878787878);
+
+    assert_eq!(sequence_matcher("this is a test", "this is a test!"), 0.9655172413793104);
 }
 ```
 
@@ -89,11 +94,12 @@ Benchmarks require a Nightly toolchain. Run `$ cargo +nightly bench`.
 
 [MIT](https://github.com/luizvbo/fuzzt/blob/main/LICENSE)
 
-[string similarity metrics]:http://en.wikipedia.org/wiki/String_metric
-[Damerau-Levenshtein]:http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
-[Jaro and Jaro-Winkler]:http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
-[Levenshtein]:http://en.wikipedia.org/wiki/Levenshtein_distance
-[Hamming]:http://en.wikipedia.org/wiki/Hamming_distance
-[Optimal string alignment]:https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
-[Sørensen-Dice]:http://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient
-[Docker]:https://docs.docker.com/engine/installation/
+[string similarity metrics]: http://en.wikipedia.org/wiki/String_metric
+[Damerau-Levenshtein]: http://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance
+[Jaro and Jaro-Winkler]: http://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance
+[Levenshtein]: http://en.wikipedia.org/wiki/Levenshtein_distance
+[Hamming]: http://en.wikipedia.org/wiki/Hamming_distance
+[Optimal string alignment]: https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance#Optimal_string_alignment_distance
+[Sørensen-Dice]: http://en.wikipedia.org/wiki/S%C3%B8rensen%E2%80%93Dice_coefficient
+[Gestalt pattern matching]: https://en.wikipedia.org/wiki/Gestalt_pattern_matching
+[Docker]: https://docs.docker.com/engine/installation/
