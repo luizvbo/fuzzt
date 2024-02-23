@@ -84,9 +84,10 @@ By default, all features are included when you add `fuzzt` as a dependency.
 However, you can choose to include only specific features by listing them under
 the `features` key in your `Cargo.toml` file. For example:
 
-````toml
+```toml
 [dependencies]
 fuzzt = { version = "*", default-features = false, features = ["levenshtein", "jaro"] }
+```
 
 ## Installation
 
@@ -95,7 +96,7 @@ your project:
 
 ```sh
 cargo add fuzzt
-````
+```
 
 ## Usage
 
